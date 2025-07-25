@@ -95,7 +95,7 @@ interface Params {
 }
 
 interface Props {
-  params: Params;
+  params: Promise<Params>;
 }
 
 export async function generateStaticParams() {
@@ -105,7 +105,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const cityData = serviceAreas[params.city as keyof typeof serviceAreas];
+  const resolvedParams = await params;
+  const cityData = serviceAreas[resolvedParams.city as keyof typeof serviceAreas];
   
   if (!cityData) {
     return {
@@ -117,7 +118,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return generatePageMetadata({
     title: `${cityData.name} Finish Carpenter | Custom Cabinets & Trim | Montana`,
     description: `Expert finish carpentry in ${cityData.displayName}. Custom cabinets, trim work, and built-ins. Only ${cityData.distance} - serving ${cityData.name} since 2004.`,
-    path: `/service-areas/${params.city}`,
+    path: `/service-areas/${resolvedParams.city}`,
     keywords: [
       `finish carpenter ${cityData.name}`,
       `custom cabinets ${cityData.name} MT`,
@@ -128,8 +129,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default function ServiceAreaPage({ params }: Props) {
-  const cityData = serviceAreas[params.city as keyof typeof serviceAreas];
+export default async function ServiceAreaPage({ params }: Props) {
+  const resolvedParams = await params;
+  const cityData = serviceAreas[resolvedParams.city as keyof typeof serviceAreas];
   
   if (!cityData) {
     notFound();
@@ -139,7 +141,7 @@ export default function ServiceAreaPage({ params }: Props) {
   const localAreaSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    '@id': `${siteUrl}/service-areas/${params.city}#service`,
+    '@id': `${siteUrl}/service-areas/${resolvedParams.city}#service`,
     name: `Finish Carpentry Services in ${cityData.displayName}`,
     description: cityData.description,
     provider: {
@@ -181,7 +183,7 @@ export default function ServiceAreaPage({ params }: Props) {
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url('/images/service-areas/${params.city}-hero.jpg')`,
+              backgroundImage: `url('/images/service-areas/${resolvedParams.city}-hero.jpg')`,
             }}
           >
             <div className="absolute inset-0 bg-black/70" />
@@ -190,7 +192,7 @@ export default function ServiceAreaPage({ params }: Props) {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Breadcrumbs items={[
               { name: 'Service Areas', href: '/service-areas' },
-              { name: cityData.name, href: `/service-areas/${params.city}` }
+              { name: cityData.name, href: `/service-areas/${resolvedParams.city}` }
             ]} />
             
             <div className="max-w-4xl">
@@ -257,7 +259,7 @@ export default function ServiceAreaPage({ params }: Props) {
                   <div 
                     className="w-full h-full bg-cover bg-center"
                     style={{
-                      backgroundImage: `url('/images/service-areas/${params.city}-landscape.jpg')`,
+                      backgroundImage: `url('/images/service-areas/${resolvedParams.city}-landscape.jpg')`,
                     }}
                   />
                 </div>

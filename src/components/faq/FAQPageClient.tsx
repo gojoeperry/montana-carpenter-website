@@ -297,7 +297,6 @@ export function FAQPageClient() {
           title="Still Have Questions?"
           subtitle="Can't find the answer you're looking for? We're here to help with any questions about your finish carpentry project."
           primaryButtonText="Contact Us"
-          secondaryButtonText="Request Quote"
           backgroundVariant="solid"
         />
       </main>
