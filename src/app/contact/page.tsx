@@ -29,6 +29,7 @@ export default function ContactPage() {
       <TrustBadges 
         title="Why Choose Montana Finish Carpenter?"
         variant="grid" 
+        showTitle={true}
         className="py-16 bg-[#FAFAF8]"
       />
       <Footer />

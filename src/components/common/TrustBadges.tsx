@@ -47,12 +47,14 @@ interface TrustBadgesProps {
   className?: string;
   variant?: 'horizontal' | 'grid';
   showTitle?: boolean;
+  title?: string;
 }
 
 export function TrustBadges({ 
   className, 
   variant = 'horizontal',
-  showTitle = false 
+  showTitle = false,
+  title = "Why Choose Us?"
 }: TrustBadgesProps) {
   return (
     <section className={cn("py-16", className)}>
@@ -60,7 +62,7 @@ export function TrustBadges({
         {showTitle && (
           <div className="text-center mb-12">
             <h2 className="text-3xl font-heading font-bold text-primary mb-4">
-              Why Choose Us?
+              {title}
             </h2>
             <p className="text-lg text-muted max-w-2xl mx-auto">
               Your peace of mind is our priority. We&apos;re committed to delivering 
