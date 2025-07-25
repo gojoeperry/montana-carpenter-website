@@ -7,7 +7,7 @@ import { CTA } from '@/components/common/CTA';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
 import { detailedServices } from '@/data/detailed-services';
 import { processSteps } from '@/data/process-steps';
-import { generatePageMetadata, services, siteUrl } from '@/lib/metadata';
+import { generatePageMetadata, siteUrl } from '@/lib/metadata';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Finish Carpentry Services in Somers, MT | Custom Cabinets & Trim',

@@ -53,7 +53,7 @@ export function GoogleAnalytics({ trackingId }: GoogleAnalyticsProps) {
 export function useGoogleAnalytics() {
   const trackEvent = (
     eventName: string,
-    parameters: Record<string, any> = {}
+    parameters: Record<string, unknown> = {}
   ) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', eventName, {
@@ -118,7 +118,7 @@ declare global {
     gtag: (
       command: string,
       targetId: string | Date,
-      config?: Record<string, any>
+      config?: Record<string, unknown>
     ) => void;
   }
 }

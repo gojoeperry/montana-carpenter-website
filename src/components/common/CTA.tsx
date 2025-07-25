@@ -6,7 +6,6 @@ interface CTAProps {
   subtitle?: string;
   primaryButtonText?: string;
   primaryButtonHref?: string;
-  secondaryButtonText?: string;
   secondaryButtonHref?: string;
   showPhone?: boolean;
   backgroundVariant?: 'wood' | 'solid' | 'gradient';
@@ -17,8 +16,6 @@ export function CTA({
   title = "Ready to Transform Your Space?",
   subtitle = "Let's discuss your vision and create something beautiful together. Serving homeowners throughout the Flathead Valley with quality craftsmanship and personalized service.",
   primaryButtonText = "Get Free Quote",
-  primaryButtonHref = "/contact",
-  secondaryButtonText = "Call Now",
   secondaryButtonHref = "tel:+14065550123",
   showPhone = true,
   backgroundVariant = 'wood',

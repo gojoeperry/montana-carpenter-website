@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // Intersection Observer hook for lazy loading
 export function useIntersectionObserver(
@@ -212,7 +212,7 @@ export function loadScript(src: string, async = true, defer = false): Promise<vo
 }
 
 // Lazy load component with intersection observer
-export function lazyLoadComponent<T extends React.ComponentType<any>>(
+export function lazyLoadComponent<T extends React.ComponentType<Record<string, unknown>>>(
   importFunc: () => Promise<{ default: T }>,
   fallback?: React.ComponentType
 ) {
@@ -234,13 +234,13 @@ export function lazyLoadComponent<T extends React.ComponentType<any>>(
     if (!shouldLoad) {
       return (
         <div ref={elementRef} className="min-h-[200px] flex items-center justify-center">
-          {fallback ? <fallback /> : <div>Loading...</div>}
+          {fallback ? React.createElement(fallback) : <div>Loading...</div>}
         </div>
       );
     }
 
     return (
-      <React.Suspense fallback={fallback ? <fallback /> : <div>Loading...</div>}>
+      <React.Suspense fallback={fallback ? React.createElement(fallback) : <div>Loading...</div>}>
         <LazyComponent {...props} />
       </React.Suspense>
     );
@@ -253,7 +253,7 @@ export function monitorMemoryUsage() {
     return null;
   }
 
-  const memory = (performance as any).memory;
+  const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
   return {
     usedJSHeapSize: memory.usedJSHeapSize,
     totalJSHeapSize: memory.totalJSHeapSize,
@@ -289,10 +289,6 @@ export function createFPSMonitor() {
 // Bundle size analyzer utilities
 export function analyzeBundle() {
   if (typeof window === 'undefined') return;
-
-  // Get all script tags and their sizes
-  const scripts = Array.from(document.querySelectorAll('script[src]'));
-  const stylesheets = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
 
   const resourceSizes = performance
     .getEntriesByType('resource')
@@ -340,9 +336,9 @@ export function getConnectionSpeed() {
     return 'unknown';
   }
 
-  const connection = (navigator as any).connection;
+  const connection = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection;
   
-  if (connection.effectiveType) {
+  if (connection?.effectiveType) {
     return connection.effectiveType; // '4g', '3g', '2g', 'slow-2g'
   }
   
@@ -362,8 +358,8 @@ export function isSaveDataMode(): boolean {
     return false;
   }
 
-  const connection = (navigator as any).connection;
-  return connection.saveData === true;
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  return connection?.saveData === true;
 }
 
 // Critical resource loading

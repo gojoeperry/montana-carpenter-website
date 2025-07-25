@@ -54,7 +54,7 @@ const ContactFormSchema = z.object({
 });
 
 // Email template for contact form submissions
-function generateEmailTemplate(data: any) {
+function generateEmailTemplate(data: z.infer<typeof ContactFormSchema>) {
   return `
     <!DOCTYPE html>
     <html>
@@ -322,7 +322,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle preflight requests for CORS
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return NextResponse.json({}, { 
     status: 200,
     headers: {

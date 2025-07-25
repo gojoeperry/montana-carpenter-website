@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Script from 'next/script';
 import { Button } from '@/components/ui/Button';
 import { CTA } from '@/components/common/CTA';
@@ -31,7 +31,7 @@ function FAQHero() {
           </h1>
           <p className="text-xl sm:text-2xl leading-relaxed mb-8">
             Get answers to the most common questions about our finish carpentry services in Somers, Montana. 
-            If you don't find what you're looking for, feel free to contact us.
+            If you don&apos;t find what you&apos;re looking for, feel free to contact us.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
@@ -247,7 +247,7 @@ export function FAQPageClient() {
                 Get Your Questions Answered
               </h2>
               <p className="text-xl text-[#333333] leading-relaxed">
-                We've compiled answers to the questions we hear most often from our Montana clients.
+                We&apos;ve compiled answers to the questions we hear most often from our Montana clients.
               </p>
             </div>
             

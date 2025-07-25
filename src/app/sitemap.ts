@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { siteUrl, businessInfo } from '@/lib/metadata';
+import { siteUrl } from '@/lib/metadata';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();

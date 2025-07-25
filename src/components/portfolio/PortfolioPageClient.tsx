@@ -1,13 +1,12 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/Button';
 import { CTA } from '@/components/common/CTA';
 import { expandedPortfolio, portfolioCategories } from '@/data/expanded-portfolio';
 import { cn } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
-import { GalleryImage } from '@/components/common/OptimizedImage';
 
 // Dynamic import for the modal to reduce initial bundle size
 const PortfolioModal = dynamic(

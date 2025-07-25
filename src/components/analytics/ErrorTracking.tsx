@@ -115,7 +115,7 @@ export function ErrorTracking({ dsn, environment = 'production', tracesSampleRat
 
 // Hook for manual error reporting
 export function useErrorTracking() {
-  const reportError = (error: Error, context?: Record<string, any>) => {
+  const reportError = (error: Error, context?: Record<string, unknown>) => {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Error:', error, 'Context:', context);
       return;
@@ -141,7 +141,7 @@ export function useErrorTracking() {
     });
   };
 
-  const reportCustomEvent = (eventName: string, data?: Record<string, any>) => {
+  const reportCustomEvent = (eventName: string, data?: Record<string, unknown>) => {
     if (process.env.NODE_ENV !== 'production') {
       console.log('Custom event:', eventName, data);
       return;

@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
 import Script from 'next/script';
-import { Button } from '@/components/ui/Button';
 import { businessInfo, siteUrl } from '@/lib/metadata';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { ContactInfo } from '@/components/contact/ContactInfo';
@@ -75,7 +73,7 @@ export function ContactPageClient() {
               </h2>
               <p className="text-xl text-[#333333] max-w-3xl mx-auto">
                 From our shop in Somers, we proudly serve families and businesses throughout 
-                Montana's beautiful Flathead Valley with expert finish carpentry.
+                Montana&apos;s beautiful Flathead Valley with expert finish carpentry.
               </p>
             </div>
             

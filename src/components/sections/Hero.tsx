@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
 
 export function Hero() {
   return (
@@ -37,7 +36,7 @@ export function Hero() {
             {/* Subheading */}
             <p className="text-xl sm:text-2xl text-white leading-relaxed max-w-2xl mx-auto lg:mx-0">
               From custom cabinetry to precision trim work, we bring decades of expertise 
-              to create beautiful, functional spaces that reflect Montana's natural beauty.
+              to create beautiful, functional spaces that reflect Montana&apos;s natural beauty.
             </p>
 
             {/* Features */}

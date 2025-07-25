@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { services } from '@/data/services';
-import { cn } from '@/lib/utils';
 
 const serviceIcons = {
   'custom-cabinetry': (

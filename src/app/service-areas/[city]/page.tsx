@@ -6,7 +6,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
 import { CTA } from '@/components/common/CTA';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
-import { generatePageMetadata, siteUrl, businessInfo } from '@/lib/metadata';
+import { generatePageMetadata, siteUrl } from '@/lib/metadata';
 
 // Service area data
 const serviceAreas = {
@@ -233,7 +233,7 @@ export default function ServiceAreaPage({ params }: Props) {
                   {cityData.description}
                 </p>
                 <p className="text-[#333333] mb-8 leading-relaxed">
-                  Located just {cityData.distance}, we've been proudly serving {cityData.name} families 
+                  Located just {cityData.distance}, we&apos;ve been proudly serving {cityData.name} families 
                   and businesses with expert finish carpentry for over 20 years. Our deep knowledge of 
                   Montana living and quick response time make us the trusted choice for custom cabinetry, 
                   trim work, and built-in storage solutions.
@@ -277,7 +277,7 @@ export default function ServiceAreaPage({ params }: Props) {
                 We Know {cityData.name}
               </h2>
               <p className="text-xl text-[#333333] max-w-3xl mx-auto leading-relaxed">
-                Local knowledge matters. We've worked throughout {cityData.name}, 
+                Local knowledge matters. We&apos;ve worked throughout {cityData.name}, 
                 from historic downtown to newer developments.
               </p>
             </div>

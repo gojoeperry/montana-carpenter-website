@@ -68,8 +68,8 @@ export function ContactForm() {
           Thank You!
         </h3>
         <p className="text-[#333333] mb-6 leading-relaxed">
-          We've received your message and will get back to you within 24 hours. 
-          We're excited to learn more about your project!
+          We&apos;ve received your message and will get back to you within 24 hours. 
+          We&apos;re excited to learn more about your project!
         </p>
         <Button 
           onClick={() => {

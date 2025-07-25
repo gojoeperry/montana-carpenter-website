@@ -37,14 +37,14 @@ export function Testimonials() {
             What Our Clients Say
           </h2>
           <p className="text-xl text-[#333333] max-w-3xl mx-auto leading-relaxed">
-            Don't just take our word for it. Hear from Montana homeowners who have 
+            Don&apos;t just take our word for it. Hear from Montana homeowners who have 
             experienced our craftsmanship firsthand.
           </p>
         </div>
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {featuredTestimonials.map((testimonial, index) => (
+          {featuredTestimonials.map((testimonial) => (
             <Card 
               key={testimonial.id} 
               className="relative overflow-hidden bg-white border-[#333333] hover:shadow-rustic-lg transition-all duration-300 hover:-translate-y-1"
@@ -64,7 +64,7 @@ export function Testimonials() {
 
                 {/* Testimonial Text */}
                 <blockquote className="text-[#0F0F0F] leading-relaxed mb-6 text-lg">
-                  "{testimonial.text}"
+                  &quot;{testimonial.text}&quot;
                 </blockquote>
 
                 {/* Client Info */}
@@ -133,7 +133,7 @@ export function Testimonials() {
             </div>
             <div className="flex items-center space-x-2 text-[#333333] hover:text-[#0A3A2E] transition-colors cursor-pointer">
               <div className="w-6 h-6 bg-[#3E2723] rounded"></div>
-              <span className="font-medium">Angie's List</span>
+              <span className="font-medium">Angie&apos;s List</span>
             </div>
           </div>
         </div>

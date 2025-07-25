@@ -63,7 +63,7 @@ export function TrustBadges({
               Why Choose Us?
             </h2>
             <p className="text-lg text-muted max-w-2xl mx-auto">
-              Your peace of mind is our priority. We're committed to delivering 
+              Your peace of mind is our priority. We&apos;re committed to delivering 
               exceptional service you can trust.
             </p>
           </div>

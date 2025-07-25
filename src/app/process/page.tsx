@@ -79,7 +79,7 @@ function TimelineOverview() {
           </h2>
           <p className="text-xl text-[#333333] max-w-3xl mx-auto leading-relaxed">
             Over 20 years of experience has taught us that great results come from great process. 
-            Here's how we turn your vision into reality.
+            Here&apos;s how we turn your vision into reality.
           </p>
         </div>
         

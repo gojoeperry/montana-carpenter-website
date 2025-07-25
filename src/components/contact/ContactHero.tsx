@@ -17,7 +17,7 @@ export function ContactHero() {
         
         <div className="max-w-4xl">
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
-            Let's Start Your Project
+            Let&apos;s Start Your Project
           </h1>
           <p className="text-xl sm:text-2xl leading-relaxed">
             Ready to bring your Flathead Valley vision to life? Get in touch for a free consultation 

@@ -20,23 +20,6 @@ export const metadata: Metadata = generatePageMetadata({
   ]
 });
 
-function Breadcrumb() {
-  return (
-    <nav className="mb-8" aria-label="Breadcrumb">
-      <ol className="flex space-x-2 text-sm">
-        <li>
-          <a href="/" className="text-[#333333] hover:text-[#0A3A2E] transition-colors">
-            Home
-          </a>
-        </li>
-        <li className="text-[#333333]">
-          <span className="mx-2">/</span>
-          <span className="text-[#0F0F0F] font-medium">About</span>
-        </li>
-      </ol>
-    </nav>
-  );
-}
 
 function AboutHero() {
   return (

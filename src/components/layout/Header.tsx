@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
@@ -22,7 +23,7 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3">
               {/* Logo Icon */}
               <div className="w-10 h-10 bg-[#0A3A2E] rounded-rustic flex items-center justify-center text-white">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -39,7 +40,7 @@ export function Header() {
                   Quality Craftsmanship Since 2004
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}

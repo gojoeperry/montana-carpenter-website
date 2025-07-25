@@ -179,7 +179,6 @@ const nextConfig = {
   generateEtags: true,
 
   // Production optimizations
-  swcMinify: true,
   
   // Output configuration
   output: 'standalone',

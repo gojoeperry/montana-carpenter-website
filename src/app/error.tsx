@@ -36,7 +36,7 @@ export default function GlobalError({ error, reset }: ErrorProps) {
               </h1>
               
               <p className="text-[#333333] mb-8 leading-relaxed">
-                We're sorry for the inconvenience. Our team has been notified and is working to fix this issue.
+                We&apos;re sorry for the inconvenience. Our team has been notified and is working to fix this issue.
               </p>
             </div>
             

@@ -16,7 +16,7 @@ interface CustomEvent {
   action: string;
   label?: string;
   value?: number;
-  custom_parameters?: Record<string, any>;
+  custom_parameters?: Record<string, string | number | boolean>;
 }
 
 // Web Vitals thresholds
@@ -199,7 +199,7 @@ export function initPerformanceObserver() {
 
   try {
     lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-  } catch (e) {
+  } catch {
     console.warn('LCP observer not supported');
   }
 
@@ -220,7 +220,7 @@ export function initPerformanceObserver() {
 
   try {
     longTaskObserver.observe({ entryTypes: ['longtask'] });
-  } catch (e) {
+  } catch {
     console.warn('Long task observer not supported');
   }
 }
@@ -315,7 +315,7 @@ export function initErrorTracking() {
 export function initVisibilityTracking() {
   if (typeof window === 'undefined') return;
 
-  let pageLoadTime = Date.now();
+  const pageLoadTime = Date.now();
   let isVisible = !document.hidden;
   let visibilityStart = pageLoadTime;
 
@@ -401,6 +401,6 @@ export const eventBatcher = new EventBatcher();
 // Extend Window interface for TypeScript
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag: (command: string, targetId: string, config?: Record<string, unknown>) => void;
   }
 }
