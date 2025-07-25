@@ -90,20 +90,23 @@ function CategoryFilters({
 }) {
   return (
     <div className="flex flex-wrap justify-center gap-4 mb-12">
-      {faqCategories.map((category) => (
-        <button
-          key={category.id}
-          onClick={() => onCategoryChange(category.id)}
-          className={cn(
-            'px-6 py-3 rounded-rustic font-semibold transition-colors border-2',
-            activeCategory === category.id
-              ? 'bg-[#0A3A2E] text-white border-[#0A3A2E]'
-              : 'bg-white text-[#0A3A2E] border-[#0A3A2E] hover:bg-[#0A3A2E] hover:text-white'
-          )}
-        >
-          {category.name} ({category.count})
-        </button>
-      ))}
+      {faqCategories.map((category) => {
+        const categoryCount = faqs.filter(faq => faq.category === category.id).length;
+        return (
+          <button
+            key={category.id}
+            onClick={() => onCategoryChange(category.id)}
+            className={cn(
+              'px-6 py-3 rounded-rustic font-semibold transition-colors border-2',
+              activeCategory === category.id
+                ? 'bg-[#0A3A2E] text-white border-[#0A3A2E]'
+                : 'bg-white text-[#0A3A2E] border-[#0A3A2E] hover:bg-[#0A3A2E] hover:text-white'
+            )}
+          >
+            {category.name} ({categoryCount})
+          </button>
+        );
+      })}
     </div>
   );
 }
