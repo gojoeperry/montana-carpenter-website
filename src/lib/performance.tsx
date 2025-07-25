@@ -5,7 +5,7 @@ export function useIntersectionObserver(
   options: IntersectionObserverInit = {}
 ) {
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const targetRef = useRef<HTMLElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const target = targetRef.current;
@@ -114,7 +114,7 @@ export class PerformanceTimer {
   mark(name: string): void {
     this.marks.set(name, performance.now());
     
-    if (typeof window !== 'undefined' && window.performance?.mark) {
+    if (typeof window !== 'undefined' && window.performance && 'mark' in window.performance) {
       performance.mark(name);
     }
   }
@@ -130,7 +130,7 @@ export class PerformanceTimer {
 
     const duration = endTime - startTime;
     
-    if (typeof window !== 'undefined' && window.performance?.measure) {
+    if (typeof window !== 'undefined' && window.performance && 'measure' in window.performance) {
       try {
         performance.measure(name, startMark, endMark);
       } catch (e) {
@@ -144,7 +144,7 @@ export class PerformanceTimer {
   clear(): void {
     this.marks.clear();
     
-    if (typeof window !== 'undefined' && window.performance?.clearMarks) {
+    if (typeof window !== 'undefined' && window.performance && 'clearMarks' in window.performance) {
       performance.clearMarks();
       performance.clearMeasures();
     }
@@ -212,13 +212,13 @@ export function loadScript(src: string, async = true, defer = false): Promise<vo
 }
 
 // Lazy load component with intersection observer
-export function lazyLoadComponent<T extends React.ComponentType<Record<string, unknown>>>(
-  importFunc: () => Promise<{ default: T }>,
+export function lazyLoadComponent<P = Record<string, unknown>>(
+  importFunc: () => Promise<{ default: React.ComponentType<P> }>,
   fallback?: React.ComponentType
 ) {
   const LazyComponent = React.lazy(importFunc);
   
-  return function LazyLoadedComponent(props: React.ComponentProps<T>) {
+  return function LazyLoadedComponent(props: P) {
     const [shouldLoad, setShouldLoad] = useState(false);
     const [elementRef, isIntersecting] = useIntersectionObserver({
       threshold: 0.1,
@@ -241,7 +241,8 @@ export function lazyLoadComponent<T extends React.ComponentType<Record<string, u
 
     return (
       <React.Suspense fallback={fallback ? React.createElement(fallback) : <div>Loading...</div>}>
-        <LazyComponent {...props} />
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <LazyComponent {...(props as any)} />
       </React.Suspense>
     );
   };
@@ -254,6 +255,11 @@ export function monitorMemoryUsage() {
   }
 
   const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+  
+  if (!memory) {
+    return null;
+  }
+  
   return {
     usedJSHeapSize: memory.usedJSHeapSize,
     totalJSHeapSize: memory.totalJSHeapSize,
@@ -336,13 +342,13 @@ export function getConnectionSpeed() {
     return 'unknown';
   }
 
-  const connection = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection;
+  const connection = (navigator as Navigator & { connection?: { effectiveType?: string; downlink?: number } }).connection;
   
   if (connection?.effectiveType) {
     return connection.effectiveType; // '4g', '3g', '2g', 'slow-2g'
   }
   
-  if (connection.downlink) {
+  if (connection?.downlink) {
     if (connection.downlink >= 10) return '4g';
     if (connection.downlink >= 1.5) return '3g';
     if (connection.downlink >= 0.6) return '2g';

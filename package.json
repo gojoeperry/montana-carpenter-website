@@ -12,6 +12,7 @@
     "@heroicons/react": "^2.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "critters": "^0.0.23",
     "framer-motion": "^12.23.7",
     "isomorphic-dompurify": "^2.26.0",
     "lru-cache": "^11.1.0",

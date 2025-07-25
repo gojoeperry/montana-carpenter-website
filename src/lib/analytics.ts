@@ -1,4 +1,4 @@
-import { getCLS, getFID, getFCP, getLCP, getTTFB, Metric } from 'web-vitals';
+import { onCLS, onINP, onFCP, onLCP, onTTFB, Metric } from 'web-vitals';
 
 // Types for performance monitoring
 interface PerformanceEvent {
@@ -22,7 +22,7 @@ interface CustomEvent {
 // Web Vitals thresholds
 const VITALS_THRESHOLDS = {
   CLS: { good: 0.1, poor: 0.25 },
-  FID: { good: 100, poor: 300 },
+  INP: { good: 200, poor: 500 },
   FCP: { good: 1800, poor: 3000 },
   LCP: { good: 2500, poor: 4000 },
   TTFB: { good: 800, poor: 1800 },
@@ -86,7 +86,7 @@ export const BusinessEvents = {
     category: 'Conversion',
     action: 'form_complete',
     label: 'contact_form',
-    custom_parameters: { service_type: service }
+    custom_parameters: service ? { service_type: service } : undefined
   }),
 
   // Phone clicks
@@ -124,7 +124,7 @@ export const BusinessEvents = {
     label: 'quote',
     custom_parameters: { 
       service_type: service,
-      budget_range: budget 
+      ...(budget ? { budget_range: budget } : {})
     }
   }),
 
@@ -170,11 +170,11 @@ export function initWebVitals() {
   };
 
   // Track all Core Web Vitals
-  getCLS(handleMetric, { reportAllChanges: true });
-  getFID(handleMetric);
-  getFCP(handleMetric);
-  getLCP(handleMetric, { reportAllChanges: true });
-  getTTFB(handleMetric);
+  onCLS(handleMetric, { reportAllChanges: true });
+  onINP(handleMetric);
+  onFCP(handleMetric);
+  onLCP(handleMetric, { reportAllChanges: true });
+  onTTFB(handleMetric);
 }
 
 // Performance observer for custom metrics
@@ -191,7 +191,7 @@ export function initPerformanceObserver() {
         event: 'lcp_element',
         category: 'Performance',
         action: 'lcp_observed',
-        label: lastEntry.element?.tagName || 'unknown',
+        label: 'lcp_element',
         value: Math.round(lastEntry.startTime)
       });
     }
@@ -239,9 +239,9 @@ export function trackResourcePerformance() {
         tcp_connect: nav.connectEnd - nav.connectStart,
         tls_handshake: nav.connectEnd - nav.secureConnectionStart,
         server_response: nav.responseStart - nav.requestStart,
-        dom_interactive: nav.domInteractive - nav.navigationStart,
-        dom_complete: nav.domComplete - nav.navigationStart,
-        page_load: nav.loadEventEnd - nav.navigationStart,
+        dom_interactive: nav.domInteractive - nav.fetchStart,
+        dom_complete: nav.domComplete - nav.fetchStart,
+        page_load: nav.loadEventEnd - nav.fetchStart,
       };
 
       Object.entries(metrics).forEach(([name, value]) => {
@@ -269,7 +269,7 @@ export function trackResourcePerformance() {
           label: resource.initiatorType,
           value: Math.round(resource.transferSize / 1024), // KB
           custom_parameters: {
-            resource_name: resource.name.split('/').pop(),
+            resource_name: resource.name.split('/').pop() || 'unknown',
             duration: Math.round(resource.duration)
           }
         });
