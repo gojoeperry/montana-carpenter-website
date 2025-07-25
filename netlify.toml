@@ -1,0 +1,112 @@
+# Netlify configuration for Montana Finish Carpenter website
+
+[build]
+  publish = ".next"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+  NODE_ENV = "production"
+
+# Production context
+[context.production]
+  command = "npm run build"
+  
+[context.production.environment]
+  NODE_ENV = "production"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Deploy preview context
+[context.deploy-preview]
+  command = "npm run build"
+
+# Branch deploy context
+[context.branch-deploy]
+  command = "npm run build"
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://montanafinishcarpenter.com"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+
+# Cache static assets
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Redirects
+[[redirects]]
+  from = "https://www.montanafinishcarpenter.com/*"
+  to = "https://montanafinishcarpenter.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/www/*"
+  to = "/:splat"
+  status = 301
+
+# Handle SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"], Country = ["US"]}
+
+# Form handling (if using Netlify forms)
+[[forms]]
+  name = "contact"
+  action = "/contact"
+  method = "POST"
+
+# Functions configuration (if using Netlify functions)
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[plugins]]
+  package = "netlify-plugin-cache"
+  [plugins.inputs]
+    paths = ["node_modules", ".next/cache"]
+
+# Environment variables (set in Netlify dashboard)
+# NEXT_PUBLIC_SITE_URL
+# RESEND_API_KEY
+# NEXT_PUBLIC_GA_TRACKING_ID
+# NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+# CONTACT_EMAIL_TO
+# CONTACT_EMAIL_FROM
+# API_SECRET_KEY
