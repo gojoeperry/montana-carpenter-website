@@ -112,13 +112,3 @@ export function useGoogleAnalytics() {
   };
 }
 
-// Extend Window interface for TypeScript
-declare global {
-  interface Window {
-    gtag: (
-      command: string,
-      targetId: string | Date,
-      config?: Record<string, unknown>
-    ) => void;
-  }
-}
