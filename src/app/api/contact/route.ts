@@ -4,8 +4,19 @@ import { z } from 'zod';
 import rateLimit from '@/lib/rate-limit';
 import { sanitizeInput } from '@/lib/security';
 
-// Initialize email service
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize email service conditionally
+let resend: Resend | null = null;
+
+function getResendClient(): Resend {
+  if (!resend) {
+    const apiKey = process.env.EMAIL_SERVICE_API_KEY;
+    if (!apiKey) {
+      throw new Error('EMAIL_SERVICE_API_KEY environment variable is not set');
+    }
+    resend = new Resend(apiKey);
+  }
+  return resend;
+}
 
 // Rate limiting configuration
 const limiter = rateLimit({
@@ -273,7 +284,8 @@ export async function POST(request: NextRequest) {
     };
 
     // Send notification email to business
-    const notificationEmailResult = await resend.emails.send({
+    const resendClient = getResendClient();
+    const notificationEmailResult = await resendClient.emails.send({
       from: process.env.CONTACT_EMAIL_FROM || 'noreply@montanafinishcarpenter.com',
       to: process.env.CONTACT_EMAIL_TO || 'info@montanafinishcarpenter.com',
       subject: `New Contact Form Submission from ${sanitizedData.name}`,
@@ -286,7 +298,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send auto-reply to customer
-    const autoReplyResult = await resend.emails.send({
+    const autoReplyResult = await resendClient.emails.send({
       from: process.env.CONTACT_EMAIL_FROM || 'noreply@montanafinishcarpenter.com',
       to: sanitizedData.email,
       subject: 'Thank you for contacting Montana Finish Carpenter!',
